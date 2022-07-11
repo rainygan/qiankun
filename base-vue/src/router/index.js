@@ -1,11 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router"
+import _import from './_import';
 
-const home = import("../view/home");
-const login = import("../view/login.vue");
-// const layout = import("../layouts/layout.vue");
-// const child1 = import('../view/child1/child1.vue');
-const child2 = import('../view/child2/child2.vue');
-const child3 = import('../view/child3/child3.vue');
+const home = _import("home/index");
+const login = _import("login");
+const child2 = _import('child2/child2');
+const child3 = _import('child3/child3');
 
 const routes = [
     {
@@ -16,8 +15,6 @@ const routes = [
         name:"home",
         component:home
     },
-    // {name:'child1',path:'/child1', component:layout,redirect:'/child1/index',children:[{path:'index'}]},
-    // {name:'child1',path:'/child1/index', component:child1},
     {name:'child2',path:'/child2/index', component:child2},
     {name:'child3',path:'/child3/index', component:child3},
     {
