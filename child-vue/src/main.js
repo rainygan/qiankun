@@ -4,13 +4,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
 
-let instance = null;
+let app = null;
 
 function render (props = {}) {
     const { container } = props
-    const app = createApp(App);
+    app = createApp(App);
     app.use(router);
-    instance = app.mount(container ? container.querySelector('#app') : '#app');
+    app.mount(container ? container.querySelector('#app') : '#app');
 }
 
 // 独立运行时
@@ -26,7 +26,7 @@ export async function mount (props) {
     render(props);
 }
 export async function unmount () {
-    instance.$destroy()
-    instance.$el.innerHTML = ''
-    instance = null
+    app.unmount()
+    // app.$el.innerHTML = ''
+    app = null
   }

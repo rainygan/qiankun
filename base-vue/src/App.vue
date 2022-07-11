@@ -1,18 +1,49 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  <router-view></router-view>
+  <div v-if="token">
+    <navBar/>
+    <siderBar/>
+  </div>
+  <container/>
 </template>
-
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
+import {
+  computed,defineComponent
+}from 'vue'
+import { useRouter } from "vue-router"
+import { useStore } from 'vuex';
+import navBar from './layouts/navBar.vue'
+import siderBar from './layouts/siderBar.vue'
+import container from './layouts/container.vue'
 
-export default {
+export default defineComponent({
   name: 'App',
   components: {
-    // HelloWorld
+    navBar,siderBar,container
+  },
+  setup(){
+    const store = useStore();
+    const router = useRouter();
+    window.addEventListener('beforeunload',()=>{
+      if(store.state.token && store.state.menu.length){
+        localStorage.setItem('store',JSON.stringify(store.state));
+      }
+    });
+    const state = localStorage.getItem('store') && JSON.parse(localStorage.getItem('store'));
+    if(state){
+        store.commit('set_menu',state.menu);
+        store.dispatch('set_token_action',state.token);
+        localStorage.removeItem('store');
+    }else{
+      router.push({
+        path:'/login'
+      })
+    }
+    return{
+      token:computed(()=>store.state.token)
+    }
   }
-}
+})
 </script>
 
 <style>

@@ -15,7 +15,7 @@ export default{
       await store.dispatch('set_menu_action',[
           {
             name:'home',
-            path:'/home/index'
+            path:'/home'
           },
           {
             name:'vue-child1',
@@ -30,7 +30,7 @@ export default{
             path:'/child3/index'
           }
         ])
-      console.log('menu_login',store.state.menu);
+      store.dispatch('set_token_action',true);
       router.push({
         name:'home'
       })

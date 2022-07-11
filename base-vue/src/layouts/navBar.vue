@@ -6,11 +6,16 @@
 </template>
 <script>
 import { useRouter } from "vue-router"
+import { useStore } from 'vuex';
 export default {
   name:'navBar',
   setup() {
     const router = useRouter();
+    const store = useStore();
     const logout = (()=>{
+       store.dispatch('set_token_action',false);
+      store.commit('set_menu',[]);
+      localStorage.removeItem('store');
       router.push({
         path:'/login'
       })

@@ -11,19 +11,25 @@ const api={
 }
 export default createStore({
     state:{
-        menu:[]
+        menu:[],
+        token:false
     },
     mutations:{
         set_menu(state,menu){
             state.menu = menu;
+        },
+        set_token(state,token){
+            state.token = token;
         }
     },
     actions:{
         async set_menu_action(context,menu){
             let result = await api.getMenus(menu);
-            console.log('result',result);
-            context.commit('set_menu',result)
+            context.commit('set_menu',result);
             
+        },
+        set_token_action(context,token){
+            context.commit('set_token',token);
         }
     },
     modules:{

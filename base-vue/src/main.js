@@ -9,11 +9,15 @@ app.use(router);
 app.use(store);
 app.mount('#app');
 
-registerMicroApps([{
+registerMicroApps([
+  {
     name: 'child-vue',
     entry: '//localhost:8081',
     container: '#container',
     activeRule: '#/child1/',
+    sendbox:{
+      strictStyleIsolation:true
+    }
   },
 ]);
 
