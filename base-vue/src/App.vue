@@ -14,6 +14,7 @@ import { useStore } from 'vuex';
 import navBar from './layouts/navBar.vue'
 import siderBar from './layouts/siderBar.vue'
 import container from './layouts/container.vue'
+import { getCurrentInstance } from 'vue';
 
 export default defineComponent({
   name: 'App',
@@ -23,17 +24,22 @@ export default defineComponent({
   setup(){
     const store = useStore();
     const router = useRouter();
+    const { proxy } = getCurrentInstance();
+    const c_token = proxy.$util.getCookie("token");
     window.addEventListener('beforeunload',()=>{
       if(store.state.token && store.state.menu.length){
         localStorage.setItem('store',JSON.stringify(store.state));
       }
     });
     const state = localStorage.getItem('store') && JSON.parse(localStorage.getItem('store'));
-    if(state){
+    store.dispatch('set_token_action',c_token);
+    if(c_token){
+      if(state){
         store.commit('set_menu',state.menu);
-        store.dispatch('set_token_action',state.token);
         localStorage.removeItem('store');
+      }
     }else{
+      store.commit('set_menu',[]);
       router.push({
         path:'/login'
       })

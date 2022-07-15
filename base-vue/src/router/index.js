@@ -8,7 +8,7 @@ const child3 = _import('child3/child3');
 
 const routes = [
     {
-        path:"/",redirect:"/login"
+        path:"/",redirect:"/home"
     },
     {
         path:"/home",

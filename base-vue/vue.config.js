@@ -22,5 +22,8 @@ module.exports = {
 				'@': resolve('src'),
 			}
         }
+    },
+    chainWebpack(config){
+        config.plugins.delete('prefetch')
     }
 }

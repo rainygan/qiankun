@@ -4,18 +4,13 @@
 </template>
 <script>
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex';
-import { getCurrentInstance } from 'vue';
 export default{
+  name:"loginIndex",
   setup() {
     const router = useRouter();
-     const store = useStore();
-     const { proxy } = getCurrentInstance();
     const toIndex = () => {
-      store.dispatch('set_token_action',true);
-       proxy.$util.setCookie('token',true);
       router.push({
-        path:'child1/index'
+        name:'child1'
       })
       
     }

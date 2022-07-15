@@ -2,23 +2,20 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
 import store from './store';
+import util from './util';
 import { registerMicroApps, start } from 'qiankun';
 
 const app = createApp(App);
 app.use(router);
 app.use(store);
+app.config.globalProperties.$util = util;
 app.mount('#app');
+import { apps } from "./qiankun.config"
 
-registerMicroApps([
-  {
-    name: 'child-vue',
-    entry: '//localhost:8081',
-    container: '#container',
-    activeRule: '#/child1/',
-    sendbox:{
-      strictStyleIsolation:true
-    }
-  },
-]);
+registerMicroApps(apps);
 
-start();
+start({
+  sendbox:{
+    strictStyleIsolation:true
+  }
+});

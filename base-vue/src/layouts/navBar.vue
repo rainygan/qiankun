@@ -7,15 +7,18 @@
 <script>
 import { useRouter } from "vue-router"
 import { useStore } from 'vuex';
+import { getCurrentInstance } from 'vue';
 export default {
   name:'navBar',
   setup() {
     const router = useRouter();
     const store = useStore();
+    const { proxy } = getCurrentInstance();
     const logout = (()=>{
        store.dispatch('set_token_action',false);
       store.commit('set_menu',[]);
       localStorage.removeItem('store');
+      proxy.$util.clearCookie('token');
       router.push({
         path:'/login'
       })

@@ -7,10 +7,12 @@
 <script>
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex';
+import { getCurrentInstance } from 'vue';
 export default{
   setup() {
     const router = useRouter();
     const store = useStore();
+    const { proxy } = getCurrentInstance();
     const toHome = async () => {
       await store.dispatch('set_menu_action',[
           {
@@ -31,6 +33,7 @@ export default{
           }
         ])
       store.dispatch('set_token_action',true);
+      proxy.$util.setCookie('token',true,60*60);
       router.push({
         name:'home'
       })

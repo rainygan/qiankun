@@ -1,27 +1,25 @@
 <template>
-  <div v-if="isMcriapp">
-      <container></container>
-  </div>
-  <div v-else>
-    <navBar></navBar>
-    <siderBar></siderBar>
+    <div v-if="!isMcriapp">
+        <navBar></navBar>
+        <siderBar></siderBar>
+    </div>
+    <h1>child Home</h1>
     <container></container>
-  </div>
-  
 </template>
 
 <script>
-import navBar from '../layouts/navBar.vue'
-import siderBar from '../layouts/siderBar.vue'
-import container from '../layouts/container.vue'
+import { computed } from "vue"
+import navBar from './navBar.vue'
+import siderBar from './siderBar.vue'
+import container from './container.vue'
 export default {
     components:{
         navBar,siderBar,container
     },
-    computed:{
-      isMcriapp() {
-        return window.__POWERED_BY_QIANKUN__;
-      },
+    setup() {
+        return{
+        isMcriapp:computed(()=>window.__POWERED_BY_QIANKUN__)
+        }
     }
     
 }
