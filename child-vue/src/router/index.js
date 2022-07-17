@@ -1,9 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router"
 import _import from './_import';
 const login = _import("login");
-const layout = ()=>import('../layouts/layout.vue');
+import layout from "../layouts/layout.vue"
 const child1 = _import('child1');
-
+// import login from "@/view/login.vue"
+// import child1 from "@/view/child1.vue"
 const routes = [
     {
         path:"/",redirect:"/child1/index"

@@ -1,5 +1,7 @@
 const packageName = require('./package.json').name;
+const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
+  publicPath: isProduction ? '/child-vue' : '/',
   transpileDependencies:[
     'vuetify'
   ],
@@ -10,12 +12,11 @@ module.exports = {
     host: 'localhost',
     port:8081,
   },
-  configureWebpack: (config)=>{
-    Object.assign(config.output,{
-			library: `${packageName}-[name]`,
+  configureWebpack: {
+    output:{
+      library: `${packageName}-[name]`,
 			libraryTarget: 'umd',
 			jsonpFunction: `webpackJsonp_${packageName}`
-
-		})
+    }
   }
 };
