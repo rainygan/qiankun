@@ -1,7 +1,8 @@
 const packageName = require('./package.json').name;
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
-  publicPath: isProduction ? '/child-vue' : '/',
+  // publicPath: isProduction ? '/child-vue' : '/',
+  // outputDir:'child-vue',
   transpileDependencies:[
     'vuetify'
   ],
@@ -18,5 +19,8 @@ module.exports = {
 			libraryTarget: 'umd',
 			jsonpFunction: `webpackJsonp_${packageName}`
     }
+  },
+  chainWebpack(config){
+      config.plugins.delete('prefetch')
   }
 };
